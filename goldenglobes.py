@@ -30,22 +30,34 @@ tagger = nltk.data.load(nltk.tag._POS_TAGGER)
 
 answers = {
     "metadata": {
-        "year": "",
-        "hosts": {
-            "method": "hardcoded",
-            "method_description": ""
+        "year": 2013,
+        "names": {
+            "hosts": {
+                "method": "hardcoded",
+                "method_description": ""
+                },
+            "nominees": {
+                "method": "hardcoded",
+                "method_description": ""
+                },
+            "awards": {
+                "method": "detected",
+                "method_description": "Ranked twitter authors by score in preprocessing & used a combination of regex, proper noun extractor and scores to detect winners"
+                },
+            "presenters": {
+                "method": "hardcoded",
+                "method_description": ""
+                }
             },
-        "nominees": {
-            "method": "scraped",
-            "method_description": "Used regex, proper noun extractor & keywords like nominated, wish, hope etc. to filter tweets "
-            },
-    "awards": {
-            "method": "detected",
-            "method_description": "Applied scores to authors and tweets, higher scores are more relevant. Used regex, proper noun extractor & keywords like nominated, wish, hope etc. to filter tweets"
-            },
-        "presenters": {
-            "method": "hardcoded",
-            "method_description": ""
+        "mappings": {
+            "nominees": {
+                "method": "hardcoded",
+                "method_description": ""
+                },
+            "presenters": {
+                "method": "hardcoded",
+                "method_description": ""
+                }
             }
         },
     "data": {
@@ -57,11 +69,11 @@ answers = {
             "nominees": []
         },
         "structured": {
-            "Cecil B. DeMille Award": {
-                "nominees": [],
-                "winner": "",
-                "presenters": []
-            }
+			"Cecil B. DeMille Award": {
+				"nominees": [],
+				"winner": "",
+				"presenters": []
+			}
         }
     }
 }
@@ -206,7 +218,7 @@ def findWinners(authors, categories):
 
 	processResult(awardResult)
 
-def dressed(authors):
+def BestAndWorstDressed(authors):
 	possBest = []
 	possWorst = []
 	bestPat = re.compile(".*best dress.*",re.IGNORECASE)
@@ -547,7 +559,7 @@ def main():
 	print "\nFun Goal: Best & Worst Dressed" 
 	#uses matching + regex, "wears"
 	print "\nBest & Worst Dressed Using Regex\n"
-	dressed(authors)
+	BestAndWorstDressed(authors)
 
 	print "\nBest & Worst Dressed + Tweets Using AlchemyAPI\n"
 	#users sentiment and pulls tweets based on sentiment
