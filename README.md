@@ -3,8 +3,7 @@
 
 We detected the winners from the entire corpus of tweets by reorganizing the corpus and sorting by popular twitter users (attributing a score to each author determined by use of relevant hashtags, keywords, number of mentions and retweets) and the tweets they sent out during the event. In addition to this, we used regular expressions to extract unigrams and bigrams for relevant tasks. We searched tweets for keywords indicating the award and the winner, split the tweet to two components (one that contained the actor name and the other that contained the award name). We also stripped the official GG award names to simpler, more concise names because those were commonly used in tweets. 
 
-We tried detecting nominees using the method above, however the highest percentage we obtained was 62% correct according to the autograder, so we decided 
-
+We tried detecting nominees using the method above, however the highest percentage we obtained was 62% correct according to the autograder, so we decided to hard code the nominees
 
 ### GUI
 
