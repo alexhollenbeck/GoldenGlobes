@@ -123,15 +123,6 @@ else:
 	answers['data']['unstructured']['presenters'] = ["will ferrell", "kate hudson", "sacha baron cohen", "john krasinski", "aziz ansari", "julia roberts", "don cheadle", "kristen wiig", "arnold schwarzenegger", "lucy liu", "nathan fillion", "jay leno", "sylvester stallone", "jonah hill", "jimmy fallon", "kiefer sutherland", "jason statham", "jessica alba", "george clooney", "dennis quaid", "robert pattinson", "halle berry", "kristen bell", "lea michele", "salma hayek", "jennifer lopez", "dustin hoffman", "amanda seyfried", "kerry washington", "debra messing", "eva longoria", "jennifer garner", "megan fox", "paul rudd", "jason bateman", "bradley cooper", "robert downey, jr."]
 	answers['data']['structured']['Cecil B. DeMille Award']['winner'] = "Jodie Foster" 
 	answers['data']['structured']['Cecil B. DeMille Award']['presenters'] = ["robert downey jr."]
-	
-
-
-# def loadanswersFromFile(filePath):
-# 	answers_data = []
-# 	with open(filePath, 'r') as f:
-# 		for answersline in f:
-# 			answers_data.append(answers.loads(answersline))
-# 	return answers_data
 
 def getCategories(filePath):
 	awardCategories = []
@@ -149,41 +140,6 @@ def getProperNouns(filePath):
 	with open(filePath, 'r',encoding = 'latin-1') as f:
 		properNouns = [row.strip('\n') for row in f]
 	return properNouns
-
-# def findHostTweets(text):
-# 	pattern = re.compile(".* host.* Golden Globes .*", re.IGNORECASE)
-
-
-# 	hostMentioned = False
-
-# 	if pattern.match(text):
-# 		hostMentioned = True
-
-# 	return hostMentioned
-
-# @app.route('/findHosts')
-# def findHosts(athrs):
-# 	possibleHosts = {}
-
-# 	for athr in athrs:
-# 		for twt in athr.tweets:
-# 			text = twt.text
-# 			if findHostTweets(text):
-# 					tokenizedText = nltk.wordpunct_tokenize(text)
-# 					properNouns = processProperNouns(tokenizedText)
-# 					for possibleHost in properNouns:
-# 						if possibleHost not in possibleHosts.keys():
-# 							possibleHosts[possibleHost] = athr.score
-# 						else:
-# 							possibleHosts[possibleHost] = possibleHosts[possibleHost] + athr.score
-
-# 	sorted_hosts = OrderedDict(sorted(possibleHosts.items(), key=lambda possibleHosts: possibleHosts[1], reverse=True))
-# 	#data = collections.Counter(possibleHosts)
-# 	print("\n\nList of Hosts:\n========================")
-# 	for host in sorted_hosts.keys():
-# 		if sorted_hosts[host] > 60:
-# 			print(host, sorted_hosts[host])
-
 
 def findWinners(authors, categories):
 	awardResult = {}
@@ -325,14 +281,6 @@ def processName(text):
 		cleanAward = re.sub("%s " % stopWord, "", cleanAward)
 	return cleanAward
 
-# def sanitizeSlang(text):
-# 	cleanTweet = text
-# 	stopList = slangStopList
-# 	for stopWord in stopList:
-# 		cleanTweet = re.sub("(?i)%s " % stopWord, "", cleanTweet)
-
-# 	return cleanTweet
-
 def processResult(awardResult):
 	winnersList = []
 	with open('nominees.json') as f:
@@ -377,15 +325,6 @@ def processResult(awardResult):
 			for n in nominees:
 				print n
 	answers['data']['unstructured']['winners'] = copy.deepcopy(winnersList)
-
-		# print "\n\n"
-		# print a
-		# print "\n========================\n"
-		# print "Nominees:\n"
-		# for c in mostCommon[0:5]:
-		# 	print c[0]
-		# print "And the winner is...\n"
-		# print mostCommon[0][0]
 
 def findSimilarCategory(text,awardCategories):
 	similarities = {}
