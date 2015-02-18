@@ -1,3 +1,11 @@
-*.json
-*.txt
+gg15mini.json
+gg2013.json
+popular_hashtags2013.txt
+popular_hashtags2015.txt
+popular_tweets2013.txt
+popular_tweets2015.txt
+popular_users2013.txt
+popular_users2015.txt
+userTweetRelation2013.txt
+userTweetRelation2015.txt
 .DS_Store
