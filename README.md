@@ -5,6 +5,11 @@ We detected the winners from the entire corpus of tweets by reorganizing the cor
 
 We tried detecting nominees using the method above, however the highest percentage we obtained was 62% correct according to the autograder, so we decided 
 
+
+GUI
+
+We used Flask and the results of running goldenglobes.py to show the winners, hosts, nominees of the awards in 2015 and 2013. We used the names provided by the python script to pull Wikipedia images and info. 
+
 Fun Goals
 
 1. Best & Worst Dressed  (using 2 methods)
