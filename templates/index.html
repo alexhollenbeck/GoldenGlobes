@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EECS 337 Golden Globes Project</title>
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="flat-ui.min.css" rel="stylesheet">
+    <link href="custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="dist/js/vendor/html5shiv.js"></script>
+      <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="jumbotron">
+      <center>
+        <h1>EECS 337 Golden Globes Project</h1>
+        <h6>Zak Allen, Shikhar Mohan, Alex Hollenbeck, Tasha McKinney</h6>
+        <p>Select a year</p>
+        <select id="year" class="form-control select select-primary" style="width:200px" data-toggle="select">
+          <option value="2013">2013</option>
+          <option value="2015" selected>2015</option>
+        </select>
+        <br>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Load the results</a></p>
+        <p>Project 1 for EECS 337, determining the outcome of the Golden Globes based on tweet data.</p>
+    </div>
+
+    <div id="results" class="container">
+    </div>
+      
+
+    <script src="jquery.min.js"></script>
+    <script src="flat-ui.min.js"></script>
+    <script src="isotope.pkgd.min.js"></script>
+    <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+      $(function() {
+        $('.btn').bind('click', function() {
+          $.getJSON($SCRIPT_ROOT + $('#year').val() + 'result.json', {
+            
+          }, function(data) {
+            console.log(data);
+            $('#results').html("<center><h1>"+$('#year').val()+" Golden Globes</h1></center><div class='row'><div class='col-md-3'></div><div class='col-md-6 award'><h4>Tina Fey</h4><blockquote>Host</blockquote><a class='embedly-card' href='http://en.wikipedia.org/wiki/Tina_Fey'></a></div><div class='col-md-3'></div></div><div class='row'><div class='col-md-3'></div><div class='col-md-6 award'><h4>Amy Poehler</h4><blockquote>Host</blockquote><a class='embedly-card' href='http://en.wikipedia.org/wiki/Amy_Poehler'></a></div><div class='col-md-3></div></div><hr>");
+            window.setTimeout(function(){
+              // animate scrolling
+              $('html,body').animate({
+                scrollTop: $('#results').offset().top
+              }, 1000);
+              $('#results').animate({
+                opacity: 1
+              }, 1000);
+              
+            }, 4000);
+
+            $.each(data.data.structured, function(key, val){
+              //hard coded stuff
+              wiki_uri = val.winner.replace(/ /g,"_");
+              if (val.winner == "Birdman")
+                wiki_uri = "Birdman_(film)";
+              else if (val.winner == "Gina Rodriguez")
+                wiki_uri = "Gina_Rodriguez_(actress)"
+              else if (val.winner == "Transparent")
+                wiki_uri = "Transparent_(TV_series)"
+              else if (val.winner == "Fargo")
+                wiki_uri = "Fargo_(TV_series)"
+              else if (val.winner == "the theory of everything")
+                wiki_uri = "The_Theory_of_Everything_(2014_film)"
+              else if (val.winner == "Boyhood")
+                wiki_uri = "Boyhood_(film)"
+              else if (val.winner == "Affair")
+                wiki_uri = "The_Affair_(TV_series)"
+              else if (val.winner == "Bob Thornton")
+                wiki_uri = "Billy_Bob_Thornton"
+              else if (val.winner == "Train Your Dragon")
+                wiki_uri = "How_to_Train_Your_Dragon_2"
+              else if (val.winner == "selma")
+                wiki_uri = "Selma_(film)"
+              else if (val.winner == "Leviathan")
+                wiki_uri = "Leviathan_(2014_film)"
+
+              
+
+              image_url = "http://" + val.winner.toLowerCase().replace(/ /g,"_") + ".jpg.to";
+              html_str = "<div class='row'><div class='col-md-3'></div><div class='col-md-6 award'>";
+              html_str += "<h4>" + val.winner + "</h4><blockquote>"+key+"</blockquote><a class='embedly-card' href='http://en.wikipedia.org/wiki/"+wiki_uri+"'></a>";
+              if (val.nominees){
+                html_str += "<p class='lead'>Nominees</p><ul>";
+                for(var nom in val.nominees){
+                  html_str +=  "<li>"+ val.nominees[nom] +"</li>";
+                }
+                html_str += "</ul>"
+              }
+              html_str += "</div><div class='col-md-3></div></div><hr>";
+              $('#results').append(html_str);
+            });
+
+            
+            
+            
+
+            // get best and worst dressed
+            $.getJSON($SCRIPT_ROOT + '/_set_year', {
+              a: $('#year').val()
+            }, function(data) {
+              
+            });
+          });
+          return false;
+        });
+      });
+      $(window).load(function() {
+        
+        
+      });
+    </script>
+  </body>
+</html>
