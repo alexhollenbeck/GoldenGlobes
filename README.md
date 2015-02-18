@@ -27,6 +27,6 @@ We used Flask and the results of running goldenglobes.py to show the winners, ho
 
 	The cool thing about alchemy was that it let us extract and display relevant tweets for both fun goals.
 
-
+To run preprocess.py add the filename as an arg `python preprocess.py gg15mini.json`
 To run the project in command line for 2015. For 2013 replace the year. - `python goldenglobes.py 2015`
 To run the web GUI - `python goldenglobes.py web` This will start the Flask app & server
